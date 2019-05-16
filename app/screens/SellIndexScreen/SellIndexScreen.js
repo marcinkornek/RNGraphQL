@@ -9,4 +9,8 @@ function SellIndexScreen() {
   )
 }
 
+SellIndexScreen.navigationOptions = ({ screenProps }) => ({
+  title: 'Sell'
+})
+
 export default SellIndexScreen

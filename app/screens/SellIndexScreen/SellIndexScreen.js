@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import SellItemForm from '../../components/SellItemForm/SellItemForm'
 
 function SellIndexScreen() {
   return (
     <View>
-      <Text>Sell index</Text>
+      <SellItemForm />
     </View>
   )
 }

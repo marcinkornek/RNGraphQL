@@ -2,10 +2,10 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import SellItemForm from '../../components/SellItemForm/SellItemForm'
 
-function SellIndexScreen() {
+function SellIndexScreen({ navigation }) {
   return (
     <View>
-      <SellItemForm />
+      <SellItemForm onSaveItem={() => navigation.navigate('ShopIndex')} />
     </View>
   )
 }

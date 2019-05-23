@@ -5,6 +5,7 @@ import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import ImagePicker from 'react-native-image-picker';
 import Error from '../ErrorMessage/ErrorMessage';
+import { ALL_ITEMS_QUERY } from '../../screens/ShopIndexScreen/ShopIndexScreen';
 
 const { width } = Dimensions.get('window')
 
@@ -59,7 +60,12 @@ const CREATE_ITEM_MUTATION = gql`
       image: $image
       largeImage: $largeImage
     ) {
-      id
+      id,
+      title,
+      description,
+      price,
+      image,
+      largeImage,
     }
   }
 `;
@@ -112,8 +118,24 @@ function CreateItem({ onSaveItem }) {
     });
   }
 
+  onUpdate = (cache, { data: { createItem } }) => {
+    // 1. first read the cache
+    const { items } = cache.readQuery({ query: ALL_ITEMS_QUERY });
+    console.log('onUpdate items', items);
+    console.log('onUpdate createItem', createItem);
+    // 2. add new item to cache
+    cache.writeQuery({
+      query: ALL_ITEMS_QUERY,
+      data: { items: items.concat([createItem]) }, // we need to make sure that createItem returns all required data
+    });
+  }
+
   return (
-    <Mutation mutation={CREATE_ITEM_MUTATION} variables={value}>
+    <Mutation
+      mutation={CREATE_ITEM_MUTATION}
+      variables={value}
+      update={onUpdate}
+    >
       {(createItem, { loading, error }) => (
         <View style={styles.form}>
           <Error error={error} />

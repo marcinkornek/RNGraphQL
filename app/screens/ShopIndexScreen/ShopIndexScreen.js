@@ -52,4 +52,6 @@ ShopIndexScreen.navigationOptions = ({ screenProps }) => ({
   title: 'Shop'
 })
 
+export { ALL_ITEMS_QUERY };
+
 export default ShopIndexScreen;
